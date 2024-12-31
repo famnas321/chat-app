@@ -1,4 +1,6 @@
 import mongoose, { mongo } from "mongoose";
+// import User from "./userModel.js";
+// import Message from "./messages.js";
 const conversationSchema= new mongoose.Schema({
     participants:[{
         type:mongoose.Schema.Types.ObjectId,
@@ -7,7 +9,7 @@ const conversationSchema= new mongoose.Schema({
     messages:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Message",
-        default:[]
+        default:[],
     }]
 
 },{timestamps:true})
