@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.js"
 import Message from "../models/messages.js"
+import mongoose from "mongoose";
 
 export const sendMessage= async (req,res)=>{
     try{
@@ -17,7 +18,7 @@ let conversation= await Conversation.findOne({
 })
 if (!conversation) {
   conversation = await Conversation.create({
-    participants: [senderId, recieverId],
+    participants: [mongoose.Types.objectId(senderId),mongoose.Types.objectId(recieverId)],
    
   });
 }
@@ -46,11 +47,21 @@ if(newMessage){
 export const recieveMessage= async (req,res)=>{
   try{
     const {id:userToChatId}=req.params
+    // if(!mongoose.Types.objectId.isValid(userToChatId)){
+    //   return res.status(404).json("invalid id")
+    // }
     const senderId=req.user._id
-    const conversation= Conversation.findOne({
+    const conversation= await Conversation.findOne({
       participants:{$all:[senderId,userToChatId]}
     }).populate("messages")
-    res.status(200).json(conversation.message)
+    console.log(conversation)
+    console.log(userToChatId)
+
+    // if(!conversation){
+    //    res.status(404).json("message not found")
+    // }
+    res.status(200).json(conversation.messages)
+  
   }catch(error){
    console.log("Error in getMessageController",error.message)
    res.status(500).json("unexpected error occured on server")
