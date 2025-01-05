@@ -10,7 +10,10 @@ function SignUP() {
     gender:""
 
   })
+ const handleCheckBox=(gender)=>{
+  setInputs({...inputs,gender})
 
+ }
   const handleSubmit=(e)=>{
     e.preventDefault()
     console.log( inputs )
@@ -112,7 +115,7 @@ function SignUP() {
               required
             />
           </div>
-          <CheckBox/>
+          <CheckBox onCheckboxChange={handleCheckBox} selectedGender={inputs.gender} />
           
           <button
             type="submit"
