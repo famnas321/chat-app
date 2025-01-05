@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CheckBox from './CheckBox'
-
+import { Link } from 'react-router-dom'
 function SignUP() {
+  const [inputs,setInputs] =useState({
+    fullName:"",
+    userName:"",
+    password:"",
+    confirmPassword:"",
+    gender:""
+
+  })
+
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    console.log( inputs )
+  }
   return (
     <div>
 
@@ -21,12 +34,13 @@ function SignUP() {
         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           Create your account
         </h1>
-        <form className="space-y-4 md:space-y-6" action="#">
-          {/* Full Name */}
+        <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit}>
+          
           <div>
             <label
               htmlFor="fullName"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              
             >
               Full Name
             </label>
@@ -35,11 +49,13 @@ function SignUP() {
               name="fullName"
               id="fullName"
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="John Doe"
+              placeholder="Enter the Full Name"
+              value={inputs.fullName}
+              onChange={(e)=>setInputs({...inputs,fullName:e.target.value})}
               required
             />
           </div>
-          {/* User Name */}
+         
           <div>
             <label
               htmlFor="userName"
@@ -53,10 +69,12 @@ function SignUP() {
               id="userName"
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="john_doe123"
+              value={inputs.userName}
+              onChange={(e)=>setInputs({...inputs,userName:e.target.value})}
               required
             />
           </div>
-          {/* Password */}
+         
           <div>
             <label
               htmlFor="password"
@@ -70,10 +88,12 @@ function SignUP() {
               id="password"
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="••••••••"
+              value={inputs.password}
+              onChange={(e)=>setInputs({...inputs , password:e.target.value})}
               required
             />
           </div>
-          {/* Confirm Password */}
+         
           <div>
             <label
               htmlFor="confirmPassword"
@@ -87,11 +107,13 @@ function SignUP() {
               id="confirmPassword"
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="••••••••"
+              value={inputs.confirmPassword}
+              onChange={(e)=>setInputs({...inputs,confirmPassword:e.target.value})}
               required
             />
           </div>
           <CheckBox/>
-          {/* Submit Button */}
+          
           <button
             type="submit"
             className="w-full text-white bg-slate-900 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -100,12 +122,12 @@ function SignUP() {
           </button>
           <p className="text-sm font-light text-gray-500 dark:text-gray-400">
             Already have an account?{" "}
-            <a
-              href="#"
+            <Link
+              to="/login"
               className="font-medium text-primary-600 hover:text-blue-400 hover:underline dark:text-primary-500 dark:hover:text-primary-400"
             >
               Sign in
-            </a>
+            </Link>
           </p>
         </form>
       </div>
