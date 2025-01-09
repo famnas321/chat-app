@@ -9,6 +9,6 @@ export const getUsers= async (req,res)=>{
      res.status(200).json(users)
   }catch(error){
     console.log("Error in getUsers",error.message)
-    res.status(500).json("unexpected error occured on server")
+    res.status(500).json(" yes here unexpected error occured on server")
   }
 }
