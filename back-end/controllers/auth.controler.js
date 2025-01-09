@@ -27,7 +27,7 @@ export const signUp=async (req,res)=>{
             userName,
             password:hashedPassword,
             gender,
-            profilePic: gender === "male"? boyProfilePic:girlProfilePic
+            profilePic: gender === "Male"? boyProfilePic:girlProfilePic
         
         })  
         
@@ -46,7 +46,7 @@ export const signUp=async (req,res)=>{
 
 
     }catch(error){
-        return res.status(500).json({error:"unexpected error occured on server"})
+        return res.status(500).json({ message: error.message });
     }
 }
 export const login= async (req,res)=>{

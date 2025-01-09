@@ -4,9 +4,10 @@ import SignUp from "./pages/SignUp/SignUP"
 import "./index.css"
 import Home from './pages/home/Home'
 import {Route,Routes} from "react-router-dom"
+import {Toaster} from 'react-hot-toast'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <><div>
@@ -15,8 +16,9 @@ function App() {
      <Route path ="/" element={<Home/>}/> 
      <Route path ="signUp" element={<SignUp/>}/> 
      <Route path ="/login" element={<Login/>}/> 
-
+     
      </Routes>
+     <Toaster/>
    
       </div>
       
