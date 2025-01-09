@@ -20,7 +20,6 @@ function SignUP() {
     e.preventDefault()
     // console.log( inputs )
     await signup(inputs)
-    
   } 
   return (
     <div>
