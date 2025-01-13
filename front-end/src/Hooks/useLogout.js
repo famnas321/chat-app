@@ -6,7 +6,9 @@ export const useLogout = () => {
   const { setAuthUser } = useAuthContext();
 
   const logout = () => {
-    localStorage.removeItem("chat-user");
+    localStorage.removeItem("token");
+    // localStorage.removeItem("authToken");
+    
     setAuthUser(null);
   };
 

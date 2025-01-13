@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../../components/sidebar/SideBar'
 import Header from '../../components/messages/Header'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+
+  const navigate = useNavigate()
+
+  localStorage.getItem('token')
+
+  useEffect(()=>{
+    if(!token){
+      navigate('/login')
+    }
+    
+  },[])
   return (
     <div className=' bg-red-500 justify-center flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0  '>
       

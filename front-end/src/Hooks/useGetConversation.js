@@ -8,20 +8,28 @@ const useGetConversation=()=>{
     const [conversation,setConversation]=useState([])
 
    useEffect(()=>{
-    const getConversation=async ()=>{
+    const getConversation= async ()=>{
         setLoading(true)
+         
+        const token=localStorage.getItem("token")
+    //    const credentials=localStorage.getItem("chat-user")
      try{
 
-        const response=await fetch("/api/users/getUsers",
-            {
-                method: "GET",
-                credentials: "include",
+        fetch("http://localhost:5000/api/users/", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`, 
+            },
+        });
+            if(!response.ok){
+              throw new Error(`HTTP error! staus:${response.status}`)
+               
             }
-        )
-            
            
         
         const data= await  response.json()
+        console.log(response.data)
+
         
         if(data.error){
             throw new Error(data.error)
