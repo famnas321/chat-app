@@ -12,15 +12,12 @@ const useGetConversation=()=>{
     const getConversation= async ()=>{
         setLoading(true)
          
-        // const token=localStorage.getItem("token")
-    //    const credentials=localStorage.getItem("chat-user")
+      
      try{
 
-         const response = fetch("http://localhost:5000/api/users/", {
+         const response =  await fetch("http://localhost:5000/api/users/", {
             method: "GET",
-            // headers: {
-            //     "Content-Type": "application/json",
-            //   },
+            
               credentials: 'include'
         });
             if(!response.ok){
@@ -30,7 +27,7 @@ const useGetConversation=()=>{
            
         
         const data= await  response.json()
-        console.log(response.data)
+        console.log(data)
 
         
         if(data.error){
