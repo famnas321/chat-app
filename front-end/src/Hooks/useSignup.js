@@ -7,8 +7,8 @@ const useSignup = () => {
 	const [loading, setLoading] = useState(false);
 	const { setAuthUser } = useAuthContext();
 
-	const signup = async ({ fullName, username, password, confirmPassword, gender }) => {
-		const success = handleInputErrors({ fullName, username, password, confirmPassword, gender });
+	const signup = async ({ fullName, userName, password, confirmPassword, gender }) => {
+		const success = handleInputErrors({ fullName, userName, password, confirmPassword, gender });
 		if (!success) return;
 
 		setLoading(true);
@@ -16,7 +16,7 @@ const useSignup = () => {
 			const res = await fetch("/api/auth/signup",{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ fullName, username, password, confirmPassword, gender }),
+				body: JSON.stringify({ fullName, userName, password, confirmPassword, gender }),
 			});
 
 			const data = await res.json();
@@ -28,7 +28,7 @@ const useSignup = () => {
 			}
 			localStorage.setItem("chat-user", JSON.stringify(data));
 			setAuthUser(data);
-			
+
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -40,8 +40,8 @@ const useSignup = () => {
 };
 export default useSignup;
 
-function handleInputErrors({ fullName, username, password, confirmPassword, gender }) {
-	if (!fullName || !username || !password || !confirmPassword || !gender) {
+function handleInputErrors({ fullName, userName, password, confirmPassword, gender }) {
+	if (!fullName || !userName || !password || !confirmPassword || !gender) {
 		toast.error("Please fill in all fields");
 		return false;
 	}

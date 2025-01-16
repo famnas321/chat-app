@@ -8,16 +8,16 @@ import {Toaster} from 'react-hot-toast'
 import { useAuthContext } from './context/AuthContext'
 
 function App() {
-  // const {token}=useAuthContext()
-  const token =localStorage.getItem("token")
+  const {authUser}=useAuthContext()
+  // const token =localStorage.getItem("token")
 
   return (
     <><div>
      <Routes>
 
-     <Route path ="/" element={<Home/>}/> 
-     <Route path ="/signUp" element={<SignUp/>} />
-     <Route path ="/login"  element={<Login/>} />
+     <Route path ="/" element={authUser ? <Home/> : <Navigate to={"/login"}/>} /> 
+     <Route path ="/signUp" element={ authUser? <Navigate to={"/"}/> :<SignUp/>} />
+     <Route path ="/login"  element={ authUser? <Navigate to={"/"}/> :<Login/>} />
      
      </Routes>
      <Toaster/>
