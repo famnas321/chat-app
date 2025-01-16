@@ -3,14 +3,18 @@ import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken'
 export const signUp = async (req, res) => {
   try {
-    const { fullName, userName, password, confirmPassword, gender } = req.body;
+    const {fullName, username, password, confirmPassword, gender } = req.body;
 
-    console.log(userName);
-    console.log(password);
+    console.log(username);
+    // console.log(password); 
+    // console.log(confirmPassword); 
+    // console.log(gender); 
+
+
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "password doesn't match" });
     }
-    const user = await User.findOne({ userName });
+    const user = await User.findOne({ username });
     if (user) {
       return res.status(400).json({ error: "user name exist " });
     }
@@ -18,34 +22,34 @@ export const signUp = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${userName}`;
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
     const newUser = new User({
       fullName,
-      userName,
+      username,
       password: hashedPassword,
       gender,
       profilePic: gender === "Male" ? boyProfilePic : girlProfilePic,
     });
-
+    console.log(newUser)
     await newUser.save();
 
     return res.status(201).json({
       _id: newUser._id,
       fullName: newUser.fullName,
-      userName: newUser.userName,
+      username: newUser.username,
       profilePic: newUser.profilePic,
     });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message ,mess:"error is sign" });
   }
 };
 export const login = async (req, res) => {
-    const { userName, password } = req.body;
+    const { username, password } = req.body;
     console.log(req.body);
   
     try {
-      const user = await User.findOne({ userName });
+      const user = await User.findOne({ username });
       
       if (!user) {
         return res.status(400).json({ message: "USER not found" });
