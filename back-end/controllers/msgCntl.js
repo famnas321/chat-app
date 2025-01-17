@@ -18,7 +18,7 @@ let conversation= await Conversation.findOne({
 })
 if (!conversation) {
   conversation = await Conversation.create({
-    participants: [mongoose.Types.objectId(senderId),mongoose.Types.objectId(recieverId)],
+    participants: [ new mongoose.Types.ObjectId(senderId), new mongoose.Types.ObjectId(recieverId)],
    
   });
 }
