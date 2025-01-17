@@ -1,18 +1,24 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Messages from './Messages';
 import MessageInput from './MessageInput';
 import {TiMessages} from "react-icons/ti"
+import useConversation from '../../zustand/useConversation';
 function Header() {
-  const noChatSelected=false
+  const {selectedConversation,setSelectedConversation}=useConversation()
+
+  useEffect(()=>{
+    return ()=>setSelectedConversation(null)
+  },[setSelectedConversation]) 
+  // const noChatSelected=false
   return (
     <div className="min-w-[450px] flex flex-col bg-slate-500 h-full bg-slate-900 mt-5">
-      {noChatSelected ? (<NoChatSelected/>):
+      {!selectedConversation ? (<NoChatSelected/>):
       (
       <>
       <div className="px-4 py-2 mb-2 bg-white">
         <span className="label-text">To:</span>{' '}
-        <span className="text-slate-900  font-bold">John Doe</span>
+        <span className="text-slate-900  font-bold">{selectedConversation.fullName}</span>
       </div>
       
      
