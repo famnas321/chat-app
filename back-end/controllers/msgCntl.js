@@ -35,7 +35,7 @@ if(newMessage){
     // await conversation.save()
     Promise.all([newMessage.save(),conversation.save()])
 } 
-  res.status(201).json({"message sent successfully":newMessage})
+  res.status(201).send(newMessage)
     }
     catch(error){
       console.error("Error in sendMessage:", error);
@@ -46,6 +46,8 @@ if(newMessage){
 }
 export const recieveMessage= async (req,res)=>{
   try{
+    console.log('dsoiflhdskhj',req.params);
+    
     const {id:userToChatId}=req.params
     // if(!mongoose.Types.objectId.isValid(userToChatId)){
     //   return res.status(404).json("invalid id")
@@ -54,7 +56,7 @@ export const recieveMessage= async (req,res)=>{
     const conversation= await Conversation.findOne({
       participants:{$all:[senderId,userToChatId]}
     }).populate("messages")
-    console.log(conversation)
+    console.log(conversation,'uiykgh')
     console.log(userToChatId)
 
     // if(!conversation){
