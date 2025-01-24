@@ -4,7 +4,7 @@ import useGetMessages from '../../Hooks/useGetMessages'
 import Skeleton from '../Skeleton'
 function Messages() {
   const {messages,loading}=useGetMessages()
-  console.log("messages is :",messages);
+//   console.log("messages is :",messages);
   
   return (
     <>

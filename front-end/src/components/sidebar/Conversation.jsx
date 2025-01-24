@@ -4,7 +4,7 @@ import useGetConversation from '../../Hooks/useGetConversation'
 import { getRandomEmoji } from '../../utiles/emogi'
 function Conversation() {
     const {loading,conversation}=useGetConversation()
-   console.log("conver",conversation)
+  //  console.log("conver",conversation)
   return (
     <>
     <div className='py-2 flex flex-col overflow-auto h-50'>
