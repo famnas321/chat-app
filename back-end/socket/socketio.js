@@ -10,8 +10,9 @@
         methods:["GET","POST"]
      }
  })
- io.on(`connection`,(socket)=>{
-    console.log("A User connected".socket.id)
+ const userSocketMap= {};  //{userId:socketId}
+ io.on('connection',(socket)=>{
+    console.log("A User connected",socket.id)
     socket.on("disconnect",()=>{
         console.log("User disconnected",socket.id)
     })
