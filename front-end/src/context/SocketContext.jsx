@@ -11,8 +11,15 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (authUser) {
-            const socket = io("http://localhost:5000");
+            const socket = io("http://localhost:5000",{
+                query:{
+                    userId:authUser._id
+                }
+            });
             setSocket(socket);
+            socket.on("getOnlineUsers",(users)=>{
+                setOnlineUsers(users)
+            })
             
             // Cleanup: close socket when component unmounts
             return () => socket.close();
