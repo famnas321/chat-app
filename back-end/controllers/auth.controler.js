@@ -71,7 +71,7 @@ export const login = async (req, res) => {
       res.status(200).json({
       _id: user._id,
       userName: user.userName,
-      password: user.password,
+      profilePic:user.profilePic,
       token: token,
     });
   } catch (error) {

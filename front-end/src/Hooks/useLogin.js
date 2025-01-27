@@ -25,7 +25,7 @@ const useLogin = () => {
 				
 			}
 else{
-	//  const data=res.data
+	 const data=res.data
 	console.log(res.data)
 			localStorage.setItem("chat-user", JSON.stringify(res.data));
 			setAuthUser(res.data);

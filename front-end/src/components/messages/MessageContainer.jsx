@@ -2,6 +2,12 @@ import React from 'react'
 import { useAuthContext } from '../../context/AuthContext'
 import useConversation from '../../zustand/useConversation'
 function MessageContainer({message}) {
+
+  const formatTime = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
  console.log(message)
  console.log(message.message)
    const{authUser} =useAuthContext() 
@@ -10,7 +16,7 @@ function MessageContainer({message}) {
 
    const fromMe = message.senderId === parsedUser._id;
     console.log(authUser)
-  // console.log(parsedUser);
+  console.log(parsedUser);
   
   console.log(parsedUser._id)
   const chatClassName = fromMe ? 'chat-end' : 'chat-start';
@@ -25,8 +31,8 @@ function MessageContainer({message}) {
           <img src={profilePic} alt="Profile" />
         </div>
       </div>
-      <div className={`chat-bubble text-white ${bubbleBgColour}`}>{message.message}</div>
-      <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{message.time}</div>
+      <div className={`chat-bubble text-white ${bubbleBgColour} pb-2`}>{message.message}</div>
+      <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{formatTime(message.createdAt)}</div>
     </div>
   );
 };
