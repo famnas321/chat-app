@@ -6,12 +6,16 @@ function MessageContainer({message}) {
  console.log(message.message)
    const{authUser} =useAuthContext() 
    const {selectedConversation}= useConversation()
+   const parsedUser= JSON.parse(authUser)
 
-   const fromMe = message.senderId === authUser._id;
-  //  console.log(message.senderId)
-   console.log(authUser._id)
-  const chatClassName = fromMe ? 'chat-start' : 'chat-end';
-  const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+   const fromMe = message.senderId === parsedUser._id;
+    console.log(authUser)
+  // console.log(parsedUser);
+  
+  console.log(parsedUser._id)
+  const chatClassName = fromMe ? 'chat-end' : 'chat-start';
+  const profilePic = fromMe ? parsedUser.profilePic : selectedConversation?.profilePic;
+  console.log(" the profile pic is ",parsedUser.profilePic)
   const bubbleBgColour = fromMe ? 'bg-blue-500' : 'bg-gray-300'; // For different colors
 
   return (

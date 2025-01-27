@@ -44,28 +44,39 @@ if(newMessage){
     }
 
 }
-export const recieveMessage= async (req,res)=>{
-  try{
-    console.log('dsoiflhdskhj',req.params);
+export const recieveMessage = async (req, res) => {
+  try {
     
-    const {id:userToChatId}=req.params
-    // if(!mongoose.Types.objectId.isValid(userToChatId)){
-    //   return res.status(404).json("invalid id")
-    // }
-    const senderId=req.user._id
-    const conversation= await Conversation.findOne({
-      participants:{$all:[senderId,userToChatId]}
-    }).populate("messages")
-    console.log(conversation,'uiykgh')
-    console.log(userToChatId)
+    const { id: userToChatId } = req.params;
 
-    // if(!conversation){
-    //    res.status(404).json("message not found")
-    // }
-    res.status(200).json(conversation.messages)
+   
+    if (!mongoose.Types.ObjectId.isValid(userToChatId)) {
+      return res.status(404).json("Invalid ID");
+    }
+
   
-  }catch(error){
-   console.log("Error in getMessageController",error.message)
-   res.status(500).json("unexpected error occured on server")
+    const senderId = req.user._id;
+    console.log("Sender ID:", senderId); 
+
+    
+    const conversation = await Conversation.findOne({
+      participants: { $all: [senderId, userToChatId] },
+    }).populate("messages");
+
+   
+    console.log("Conversation:", conversation);
+
+    
+    if (!conversation) {
+      return res.status(404).json("No conversation found");
+    }
+
+    
+    res.status(200).json(conversation.messages);
+
+  } catch (error) {
+    
+    console.log("Error in getMessageController", error.message);
+    res.status(500).json("Unexpected error occurred on server");
   }
-}
+};

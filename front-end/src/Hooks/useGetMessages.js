@@ -67,13 +67,13 @@ function useGetMessages() {
         try{
            const res= await fetch(`/api/messages/get/${selectedConversation._id}`)
            const data = await res.json()
-          //  console.log(data,'asdfluhjagsduyf')
+            console.log(data,'asdfluhjagsduyf')
            if(data.error) throw new Error(data.error)
             setMessages(data)
         }catch(error){
          toast.error(error.message)
          console.log(error.message);
-         
+          
          
         }
         finally{
