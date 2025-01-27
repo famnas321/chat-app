@@ -7,14 +7,14 @@ import authRoters from "./routes/auth.rout.js";
 import messageRoutes from "./routes/message.rout.js";
 import userRoutess from "./routes/userRoutes.js";
 import conectMongo from "./db/conectMongo.js";
-
+import {app,server} from "./socket/socketio.js"
 dotenv.config();
 
-const app = express();
+
 
 const corsOptions = {
-  origin: 'http://localhost:3000',  // Adjust for production
-  credentials: true,               // Allow cookies to be sent
+  origin: 'http://localhost:3000', 
+  credentials: true,              
 };
 
 app.use(cors(corsOptions));
@@ -36,7 +36,7 @@ app.use("/api/users", userRoutess);
 
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   conectMongo();
   console.log(`Server is running on ${PORT}`);
 });
