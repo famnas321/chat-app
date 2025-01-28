@@ -12,10 +12,11 @@ function MessageContainer({message}) {
  console.log(message.message)
    const{authUser} =useAuthContext() 
    const {selectedConversation}= useConversation()
-   const parsedUser= JSON.parse(authUser)
+   
+  const parsedUser= typeof authUser === "string" ? JSON.parse(authUser) : authUser;
 
    const fromMe = message.senderId === parsedUser._id;
-    console.log(authUser)
+    // console.log(authUser, "this is authUser")
   console.log(parsedUser);
   
   console.log(parsedUser._id)

@@ -1,6 +1,7 @@
 import Conversation from "../models/conversation.js"
 import Message from "../models/messages.js"
 import mongoose from "mongoose";
+import { getRecieverSocketId, io } from "../socket/socketio.js";
 
 export const sendMessage= async (req,res)=>{
     try{
@@ -33,8 +34,13 @@ if(newMessage){
     conversation.messages.push(newMessage._id)
     // await newMessage.save()
     // await conversation.save()
-    Promise.all([newMessage.save(),conversation.save()])
-} 
+}
+    await  Promise.all([newMessage.save(),conversation.save()])
+  const recieverSocketId=getRecieverSocketId(recieverId)
+  if(recieverSocketId){
+    io.to(recieverSocketId).emit ("newMessage",newMessage)
+  }
+ 
   res.status(201).send(newMessage)
     }
     catch(error){
@@ -48,6 +54,7 @@ export const recieveMessage = async (req, res) => {
   try {
     
     const { id: userToChatId } = req.params;
+    console.log("usertoChat",userToChatId)
 
    
     if (!mongoose.Types.ObjectId.isValid(userToChatId)) {
@@ -57,7 +64,7 @@ export const recieveMessage = async (req, res) => {
   
     const senderId = req.user._id;
     console.log("Sender ID:", senderId); 
-
+    
     
     const conversation = await Conversation.findOne({
       participants: { $all: [senderId, userToChatId] },
@@ -72,7 +79,7 @@ export const recieveMessage = async (req, res) => {
     }
 
     
-    res.status(200).json(conversation.messages);
+    res.status(200).send(conversation.messages);
 
   } catch (error) {
     
